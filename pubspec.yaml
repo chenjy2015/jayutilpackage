@@ -1,7 +1,7 @@
 name: jay_util_package
 description: A new Flutter package.
 version: 0.0.1
-homepage:
+homepage: https://github.com/chenjy2015/jayutilpackage.git
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

@@ -1,4 +1,4 @@
-# my_flutter_package
+# jay_util_package
 
 A new Flutter package.
 
