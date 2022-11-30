@@ -16,15 +16,15 @@ class GlobalAssets {
   /// 如果是正方形，则可以直接设置size值
   static Image asset({
     String assetsPath = AssetsPath,
-    @required String assetName,
-    @required String packageName,
-    double w,
-    double h,
-    Color color,
-    BoxFit fit,
+    required String assetName,
+    required String packageName,
+    double? w,
+    double? h,
+    Color? color,
+    BoxFit? fit,
 
     /// 如果是正方形，则可以直接设置size值
-    double size,
+    double? size,
   }) {
     if (size != null) {
       w = h = size;
@@ -46,8 +46,8 @@ class GlobalAssets {
 
   static AssetImage assetImage({
     String assetsPath = AssetsPath,
-    @required String assetName,
-    @required String packageName,
+    required String assetName,
+    required String packageName,
   }) {
     return AssetImage(
       '$assetsPath$assetName',

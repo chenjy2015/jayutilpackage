@@ -11,7 +11,7 @@ class MarkupUtils {
     dynamic node;
     switch (json["type"]) {
       case NodeType.ROOT:
-        node = RootNode(null);
+        node = RootNode(<Node>[]);
         break;
       case NodeType.ELEMENT:
         node = ElementNode(tag: json["tag"]);
@@ -47,19 +47,19 @@ class MarkupUtils {
   /// Removes DOCTYPE
   /// 删除文档类型
   static _removeDOCTYPE(String html) {
-    String xmlType;
+    String? xmlType;
     if ((xmlType = RegExp(r"<\?xml.*\?>").stringMatch(html)) != null) {
-      html = html.replaceFirst(xmlType, '');
+      html = html.replaceFirst(xmlType!, '');
     }
 
-    String hxmlType1;
+    String? hxmlType1;
     if ((hxmlType1 = RegExp(r"<!doctype.*\>").stringMatch(html)) != null) {
-      html = html.replaceFirst(hxmlType1, '');
+      html = html.replaceFirst(hxmlType1!, '');
     }
 
-    String hxmlType2;
+    String? hxmlType2;
     if ((hxmlType2 = RegExp(r"<!DOCTYPE.*\>").stringMatch(html)) != null) {
-      html = html.replaceFirst(hxmlType2, '');
+      html = html.replaceFirst(hxmlType2!, '');
     }
     return html;
   }

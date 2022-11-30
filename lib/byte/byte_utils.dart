@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -13,15 +12,14 @@ enum Radix {
 
 /// 字节工具类
 class ByteUtils {
-
   ByteUtils._();
 
   /// 将可读字符串转换为字节数组，用空格或逗号分隔的字节。
   /// 默认的基数是十六进制，或者指定的基数
   /// 比如：'01 02, ff 0x10,0xfa , 90 76 AF a0'
   /// 输出：[1, 2, 255, 16, 250, 144, 118, 175, 160]
-  static Uint8List fromReadable(String readable, {Radix radix = Radix.hex}) {
-    if(TextUtils.isEmpty(readable)){
+  static Uint8List? fromReadable(String readable, {Radix radix = Radix.hex}) {
+    if (TextUtils.isEmpty(readable)) {
       return null;
     }
     final List<int> list = [];
@@ -88,8 +86,10 @@ class ByteUtils {
   }
 
   /// 从字节序列中提取数据
-  static Uint8List extract({@required Uint8List origin,
-      @required int indexStart, @required int length}) {
+  static Uint8List? extract(
+      {required Uint8List origin,
+      required int indexStart,
+      required int length}) {
     if (indexStart >= origin.length) return null;
     int end = indexStart + length;
     if (end >= origin.length) {
@@ -100,15 +100,19 @@ class ByteUtils {
   }
 
   /// 将两个字节拼接
-  static Uint8List combine({@required Uint8List arrayFirst,
-    @required Uint8List arraySecond}) {
-    return insert(origin: arrayFirst, indexStart: arrayFirst.length,
+  static Uint8List combine(
+      {required Uint8List arrayFirst, required Uint8List arraySecond}) {
+    return insert(
+        origin: arrayFirst,
+        indexStart: arrayFirst.length,
         arrayInsert: arraySecond);
   }
 
   /// 在字节某个索引处插入字节
-  static Uint8List insert({@required Uint8List origin,
-      @required int indexStart, @required Uint8List arrayInsert}) {
+  static Uint8List insert(
+      {required Uint8List origin,
+      required int indexStart,
+      required Uint8List arrayInsert}) {
     if (indexStart < 0 || arrayInsert.length <= 0) return origin;
 
     if (origin.length == 0) {
@@ -123,8 +127,10 @@ class ByteUtils {
   }
 
   /// 在字节某个索引处移除字节
-  static Uint8List remove({@required Uint8List origin,
-    @required int indexStart, @required int lengthRemove}) {
+  static Uint8List remove(
+      {required Uint8List origin,
+      required int indexStart,
+      required int lengthRemove}) {
     if (indexStart < 0 || lengthRemove <= 0) return origin;
     if (origin.length == 0) return origin;
     if (indexStart >= origin.length) return origin;

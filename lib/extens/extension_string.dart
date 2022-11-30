@@ -64,7 +64,7 @@ extension ExtensionString on String {
   bool isDateTime() => ValidatorUtils.isDateTime(this);
 
   /// Checks if string is email.
-  bool isEmail({int minLength, int maxLength}) =>
+  bool isEmail({int? minLength, int? maxLength}) =>
       ValidatorUtils.isEmail(this) &&
           ((minLength != null)
               ? ValidatorUtils.isLengthGreaterOrEqual(this, minLength)
@@ -135,23 +135,23 @@ extension ExtensionString on String {
       ValidatorUtils.isCapitalize(this, firstOnly: firstOnly);
 
   /// Transform string to int type
-  int toInt({bool nullOnError = false}) {
-    int i = int.tryParse(this);
+  int? toInt({bool nullOnError = false}) {
+    int? i = int.tryParse(this);
     if (i != null) return i;
     if (nullOnError) return null;
     throw FormatException('Can only acception double value');
   }
 
   /// Transform string to double type
-  double toDouble({bool nullOnError = false}) {
-    double d = double.tryParse(this);
+  double? toDouble({bool nullOnError = false}) {
+    double? d = double.tryParse(this);
     if (d != null) return d;
     if (nullOnError) return null;
     throw FormatException('Can only acception double value');
   }
 
   /// Transform string to num type
-  num toNum({bool nullOnError = false}) =>
+  num? toNum({bool nullOnError = false}) =>
       nullOnError ? num.tryParse(this) : num.parse(this);
 
   /// Transform string to boolean type
@@ -162,15 +162,15 @@ extension ExtensionString on String {
   }
 
   /// Transform String millisecondsSinceEpoch (DateTime) to DateTime
-  DateTime toDateTime() {
-    int miliseconds = this.toInt(nullOnError: true);
+  DateTime? toDateTime() {
+    int? miliseconds = this.toInt(nullOnError: true);
     if (ObjectUtils.isNullOrBlank(miliseconds)) return null;
-    return DateTime.fromMillisecondsSinceEpoch(miliseconds);
+    return DateTime.fromMillisecondsSinceEpoch(miliseconds!);
   }
 
   /// Transform string value to binary
   /// Example: 15 => 1111
-  String toBinary({bool nullOnError = false}) {
+  String? toBinary({bool nullOnError = false}) {
     if (!NumUtils.isNum(this)) {
       if (nullOnError) return null;
       throw FormatException("Only accepting integer value");
@@ -182,12 +182,12 @@ extension ExtensionString on String {
   /// Example: your name => Your Name, your name => Your name
   ///
   /// If First Only is `true`, the only letter get uppercase is the first letter
-  String toCapitalize({bool firstOnly = false}) =>
+  String? toCapitalize({bool firstOnly = false}) =>
       TransformUtils.capitalize(this, firstOnly: firstOnly);
 
   /// Capitalize each word inside string
   /// Example: your name => yourName
-  String toCamelCase() => TransformUtils.camelCase(this);
+  String? toCamelCase() => TransformUtils.camelCase(this);
 
   /// Extract numeric value of string
   /// Example: OTP 12312 27/04/2020 => 1231227042020ß

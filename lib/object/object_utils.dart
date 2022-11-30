@@ -24,25 +24,25 @@ class ObjectUtils {
 
   /// Returns true if the string is null or 0-length.
   /// 判断字符串是否为空
-  static bool isEmptyString(String str) {
+  static bool isEmptyString(String? str) {
     return str == null || str.isEmpty;
   }
 
   /// Returns true if the list is null or 0-length.
   /// 判断集合是否为空
-  static bool isEmptyList(Iterable list) {
+  static bool isEmptyList(Iterable? list) {
     return list == null || list.isEmpty;
   }
 
   /// Returns true if there is no key/value pair in the map.
   /// 判断字典是否为空
-  static bool isEmptyMap(Map map) {
+  static bool isEmptyMap(Map? map) {
     return map == null || map.isEmpty;
   }
 
   /// Returns true  String or List or Map is empty.
   /// 判断object对象是否为空
-  static bool isEmpty(Object object) {
+  static bool isEmpty(Object? object) {
     if (object == null) return true;
     if (object is String && object.isEmpty) {
       return true;
@@ -62,7 +62,7 @@ class ObjectUtils {
 
   /// Returns true Two List Is Equal.
   /// 比较两个集合是否相同
-  static bool compareListIsEqual(List listA, List listB) {
+  static bool compareListIsEqual(List? listA, List? listB) {
     if (listA == listB) return true;
     if (listA == null || listB == null) return false;
     int length = listA.length;
@@ -77,7 +77,7 @@ class ObjectUtils {
 
   /// get length.
   /// 获取object的长度
-  static int getLength(Object value) {
+  static int getLength(Object? value) {
     if (value == null) return 0;
     if (value is String) {
       return value.length;

@@ -22,9 +22,9 @@ class RandomUtils {
 
   /// Generates a random string of provided or random length.
   /// 生成指定长度或随机长度的随机字符串
-  static String randomString({int length}) {
+  static String randomString({int? length}) {
     var codeUnits =
-        List.generate(length ?? _random.nextInt(pow(2, 10)), (index) {
+        List.generate(length ?? _random.nextInt(pow(2, 10).toInt()), (index) {
       return _random.nextInt(33) + 89;
     });
 
@@ -62,7 +62,7 @@ class RandomUtils {
   }
 
   /// 从列表中返回一个随机元素。
-  static T randomElement<T>(List<T> items) {
+  static T? randomElement<T>(List<T> items) {
     if(ObjectUtils.isEmpty(items)){
       return null;
     }

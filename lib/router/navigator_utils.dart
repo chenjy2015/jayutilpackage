@@ -11,12 +11,12 @@ import 'fade_route.dart';
 class NavigatorUtils {
 
   /// 解析路由数据并返回map
-  Map<String, dynamic> parseRoute(String route) {
+  Map<String, dynamic>? parseRoute(String route) {
     LogUtils.d('parseRoute: $route');
     if (TextUtils.isEmpty(route)){
       return null;
     }
-    String routeName = '', jsonData;
+    String? routeName = '', jsonData;
     if (route.contains('/')) {
       routeName = route.substring(0, route.indexOf("/"));
       jsonData = route.substring(route.indexOf("/") + 1);
@@ -60,7 +60,7 @@ class NavigatorUtils {
     try {
       //执行build方法
       var currentState = navigatorKey.currentState;
-      currentState.push(MaterialPageRoute(
+      currentState?.push(MaterialPageRoute(
         builder: (BuildContext context) => scene,
       ),);
     } catch (e, stack) {
@@ -87,7 +87,7 @@ class NavigatorUtils {
             Animation secondaryAnimation) {
           return new FadeTransition(
             //使用渐隐渐入过渡,
-            opacity: animation,
+            opacity: animation.value,
             //路由页面
             child: scene,
           );
@@ -122,19 +122,13 @@ class NavigatorUtils {
   /// 导航到新路由
   static pushNamed(BuildContext context,String path) {
     // 简单封装，导航到新路由
-    if(path!=null){
-      //过路由名称来打开新路由，可以使用Navigator 的pushNamed方法
-      Navigator.pushNamed(context,path);
-    }
+    Navigator.pushNamed(context,path);
   }
 
   /// 导航到新路由并传入参数
-  static pushNamedArguments(BuildContext context,String path,{Object arguments}) {
+  static pushNamedArguments(BuildContext context,String path,{Object? arguments}) {
     // 简单封装，导航到新路由
-    if(path!=null){
-      //过路由名称来打开新路由，可以使用Navigator 的pushNamed方法
-      Navigator.pushNamed(context,path,arguments: arguments);
-    }
+    Navigator.pushNamed(context,path,arguments: arguments);
   }
 
   static replace(BuildContext context,Widget old, Widget scene) {

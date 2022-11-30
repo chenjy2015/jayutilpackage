@@ -5,7 +5,7 @@ class FadeTransitionRoute extends PageRouteBuilder {
   final Widget page;
 
   //重写构造方法（一调用该方法就执行的方法 就叫构造方法）
-  FadeTransitionRoute({@required this.page})
+  FadeTransitionRoute({required this.page})
       : super(
             //父类的方法
             //设置动画持续的时间，建议再1和2之间

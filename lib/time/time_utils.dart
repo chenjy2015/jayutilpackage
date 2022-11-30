@@ -31,9 +31,9 @@ class TimeUtils {
   /// locale: output key.
   static String formatByDateTime(
     DateTime dateTime, {
-    DateTime locDateTime,
-    String locale,
-    DayFormat dayFormat,
+    DateTime? locDateTime,
+    String? locale,
+    DayFormat? dayFormat,
   }) {
     return format(
       dateTime.millisecondsSinceEpoch,
@@ -49,9 +49,9 @@ class TimeUtils {
   /// locale: output key.
   static String format(
     int ms, {
-    int locTimeMs,
-    String locale,
-    DayFormat dayFormat,
+    int? locTimeMs,
+    String? locale,
+    DayFormat? dayFormat,
   }) {
     int _locTimeMs = locTimeMs ?? DateTime.now().millisecondsSinceEpoch;
     String _locale = locale ?? 'en';
@@ -122,7 +122,7 @@ class TimeUtils {
   /// others (yyyy-MM-dd)
   static String formatA(
     int ms, {
-    int locMs,
+    int? locMs,
     String formatToday = 'HH:mm',
     String format = 'yyyy-MM-dd',
     String languageCode = 'en',

@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class FadeRoute extends PageRoute {
 
   FadeRoute({
-    @required this.builder,
+    required this.builder,
     this.transitionDuration = const Duration(milliseconds: 300),
     this.opaque = true,
     this.barrierDismissible = false,
@@ -34,11 +34,11 @@ class FadeRoute extends PageRoute {
 
   /// 屏障的颜色
   @override
-  final Color barrierColor;
+  final Color? barrierColor;
 
   /// 屏障的标签
   @override
-  final String barrierLabel;
+  final String? barrierLabel;
 
   /// 是否状态保留
   @override

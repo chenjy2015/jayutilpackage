@@ -27,6 +27,6 @@ extension ExtensionInt on int {
   /// Transform int value to binary string
   /// 转换int值为二进制字符串
   /// Example: 1111 => 15
-  int fromBinary() => TransformUtils.fromBinary(this.toString());
+  int? fromBinary() => TransformUtils.fromBinary(this.toString());
 
 }

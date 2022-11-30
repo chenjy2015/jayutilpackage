@@ -11,17 +11,21 @@ class WrapWidget<T> extends StatelessWidget {
   final List<T> data;
   final double spacing;
   final double runSpacing;
-  final WrapItemWidget itemWidget;
+  final WrapItemWidget? itemWidget;
 
   const WrapWidget(
-      {Key key, this.data, this.spacing = 12, this.runSpacing = 12, this.itemWidget})
+      {Key? key,
+      required this.data,
+      this.spacing = 12,
+      this.runSpacing = 12,
+      required this.itemWidget})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     /*一个渐变颜色的正方形集合*/
     List<Widget> children() => List.generate(data.length, (index) {
-          return itemWidget(data[index], index);
+          return itemWidget!(data[index], index);
         }).cast();
 
     return Wrap(

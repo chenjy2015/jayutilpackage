@@ -1,5 +1,8 @@
+## [1.0.0] - TODO: 2022/11/30.
+*  适配空安全 -- null safety
+
 ## [0.0.10] - TODO: 2021/12/15.
-*  新增WrapWidget自动换行排版widget
+* 新增WrapWidget自动换行排版widget
 
 ## [0.0.9] - TODO: 2021/12/14.
 *  修改changelog排版 按最新日期倒叙排序

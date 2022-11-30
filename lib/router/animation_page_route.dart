@@ -34,11 +34,11 @@ final Tween<Offset> _secondaryTweenSlideFromLeftToRight =
 class AnimationPageRoute<T> extends PageRoute<T> {
   AnimationPageRoute({
     /// 必要参数要用@required 标注
-    @required this.builder,
+    this.builder,
     this.isExitPageAffectedOrNot = true,
     //从右到左的滑动
     this.animationType = AnimationType.SlideRL,
-    RouteSettings settings,
+    RouteSettings? settings,
     this.maintainState = true,
     bool fullscreenDialog = false,
   })  : assert(builder != null),
@@ -50,7 +50,7 @@ class AnimationPageRoute<T> extends PageRoute<T> {
         assert(fullscreenDialog != null),
         super(settings: settings, fullscreenDialog: fullscreenDialog);
 
-  final WidgetBuilder builder;
+  final WidgetBuilder? builder;
 
   /// 该参数只针对当[AnimationType]为[SlideLR]或[SlideRL]新页面及当前页面动画均有效
   final bool isExitPageAffectedOrNot;
@@ -65,10 +65,10 @@ class AnimationPageRoute<T> extends PageRoute<T> {
   Duration get transitionDuration => const Duration(milliseconds: 300);
 
   @override
-  Color get barrierColor => null;
+  Color? get barrierColor => null;
 
   @override
-  String get barrierLabel => null;
+  String? get barrierLabel => null;
 
   @override
   bool canTransitionTo(TransitionRoute<dynamic> nextRoute) =>
@@ -77,7 +77,7 @@ class AnimationPageRoute<T> extends PageRoute<T> {
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation) {
-    final Widget result = builder(context);
+    final Widget? result = builder!(context);
     assert(() {
       if (result == null) {
         throw FlutterError.fromParts(<DiagnosticsNode>[

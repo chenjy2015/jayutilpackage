@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-import 'package:flutter/material.dart';
 
 import 'byte.dart';
 import 'byte_utils.dart';
@@ -51,20 +50,20 @@ class ByteArray {
     return _bytes;
   }
 
-  Uint8List insert({@required int indexStart, @required int value}) {
+  Uint8List insert({required int indexStart, required int value}) {
     _bytes = ByteUtils.insert(origin: _bytes,
         indexStart: indexStart, arrayInsert: Uint8List.fromList([value]));
     return _bytes;
   }
 
   Uint8List insertArray(
-      {@required int indexStart, @required Uint8List arrayInsert}) {
+      {required int indexStart, required Uint8List arrayInsert}) {
     _bytes = ByteUtils.insert(origin: _bytes,
         indexStart: indexStart, arrayInsert: arrayInsert);
     return _bytes;
   }
 
-  Uint8List remove({@required int indexStart, @required int lengthRemove}) {
+  Uint8List remove({required int indexStart, required int lengthRemove}) {
     _bytes = ByteUtils.remove(origin: _bytes,
         indexStart: indexStart, lengthRemove: lengthRemove);
     return _bytes;

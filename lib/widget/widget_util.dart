@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 class WidgetUtil {
   ///创建一个带有毛玻璃背景的widget
   static Widget createGroundGlass({
-    Widget background,
-    Widget child,
-    double width,
-    double height,
+    Widget? background,
+    Widget? child,
+    double? width,
+    double? height,
     double topLeft = 0,
     double topRight = 0,
     double bottomLeft = 0,
@@ -17,7 +17,7 @@ class WidgetUtil {
     double opacity = 0.2,
     double sigmaX = 5.0,
     double sigmaY = 5.0,
-    Color glassColor,
+    Color? glassColor,
   }) {
     ///圆角
     BorderRadius borderRadius = BorderRadius.only(

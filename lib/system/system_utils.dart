@@ -7,11 +7,11 @@ import 'package:jay_util_package/text/text_utils.dart';
 class SystemUtils{
 
   /// 拷贝文本内容到剪切板
-  static bool copyToClipboard(String text, {String successMessage, BuildContext context}) {
+  static bool copyToClipboard(String text, {String? successMessage, BuildContext? context}) {
     if (TextUtils.isNotEmpty(text)) {
       Clipboard.setData(new ClipboardData(text: text));
       if (context != null) {
-        Scaffold.of(context)?.showSnackBar(new SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
             duration: Duration(seconds: 1),
             content: new Text(successMessage ?? "copy success")));
         return true;

@@ -7,7 +7,7 @@ class GZXDropdownMenuController extends ChangeNotifier {
   ///
   /// Since the GZXDropDownMenu actually returns a Positioned widget, the GZXDropDownMenu must be inside the Stack
   /// vertically.
-  double dropDownMenuTop;
+  late double dropDownMenuTop;
 
   /// Current or last dropdown menu index, default is 0.
   int menuIndex = 0;

@@ -7,13 +7,13 @@ typedef void OnTimerTickCallback(int millisUntilFinished);
 /// 倒计时timer工具类
 class TimerUtils {
 
-  TimerUtils({
+   TimerUtils({
     this.mInterval = Duration.millisecondsPerSecond,
     this.mTotalTime = 0
   });
 
   /// Timer.
-  Timer _mTimer;
+  Timer? _mTimer;
 
   /// Is Timer active.
   /// Timer是否启动.
@@ -28,7 +28,7 @@ class TimerUtils {
   /// 单位毫秒
   int mTotalTime;
 
-  OnTimerTickCallback _onTimerTickCallback;
+  OnTimerTickCallback? _onTimerTickCallback;
 
   /// set Timer interval. (unit millisecond).
   /// 设置Timer间隔.
@@ -84,7 +84,7 @@ class TimerUtils {
 
   void _doCallback(int time) {
     if (_onTimerTickCallback != null) {
-      _onTimerTickCallback(time);
+      _onTimerTickCallback!(time);
     }
   }
 

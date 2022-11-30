@@ -18,7 +18,7 @@ class ColorUtils{
   ///RGB       #RGB888
   ///ARGB      #00RGB888
   ///字符串转换成color
-  static Color hexToColor(String color, {Color defaultColor}) {
+  static Color hexToColor(String color, {required Color defaultColor}) {
     if (color == null || color.length != 7 ||
         int.tryParse(color.substring(1, 7), radix: 16) == null) {
       return defaultColor;
@@ -31,7 +31,7 @@ class ColorUtils{
 
 
   ///将颜色转化为color
-  static Color toColor(String color , {Color defaultColor}) {
+  static Color toColor(String color , {required Color defaultColor}) {
     if (TextUtils.isEmpty(color)) {
       return defaultColor;
     }
@@ -57,7 +57,7 @@ class ColorUtils{
   }
 
   /// 将color颜色转变为字符串
-  static String colorString(Color color){
+  static String? colorString(Color color){
     if(ObjectUtils.isNull(color)){
       return null;
     }
@@ -73,7 +73,7 @@ class ColorUtils{
     return RegexUtils.hasMatch(color, RegexConstants.hexadecimal);
   }
 
-  static Color hexToColorARGB(String code, {Color fallBackColor}) {
+  static Color hexToColorARGB(String code, {required Color fallBackColor}) {
     LogUtils.d("hexToColor: input=$code");
     if (TextUtils.isEmpty(code)) {
       LogUtils.d("hexToColor: output=transparent");

@@ -1,9 +1,7 @@
-
 import 'package:jay_util_package/regex/regex_constants.dart';
 
 /// 常见正则表达式工具类
 class RegexUtils {
-
   static final Map<String, String> cityMap = Map();
 
   /// Return whether input matches regex of simple mobile.
@@ -67,7 +65,7 @@ class RegexUtils {
         '2'
       ];
       if (cityMap.isEmpty) {
-        List<String> list = ID_CARD_PROVINCE_DICT;
+        List<String> list = idCardProvinceDict;
         List<MapEntry<String, String>> mapEntryList = [];
         for (int i = 0, length = list.length; i < length; i++) {
           List<String> tokens = list[i].trim().split('=');
@@ -121,7 +119,8 @@ class RegexUtils {
 
   /// Return whether input matches regex of username.
   /// 返回输入是否匹配用户名的正则表达式。
-  static bool isUserName(String input, {String regex = RegexConstants.REGEX_USERNAME}) {
+  static bool isUserName(String input,
+      {String regex = RegexConstants.REGEX_USERNAME}) {
     return matches(regex, input);
   }
 
@@ -141,14 +140,13 @@ class RegexUtils {
   }
 
   /// 判断内容是否符合正则
-  static bool hasMatch(String s, Pattern p){
-    return (s == null) ? false : RegExp(p).hasMatch(s);
+  static bool hasMatch(String? s, Pattern p) {
+    return (s == null) ? false : RegExp(p.toString()).hasMatch(s);
   }
-
 }
 
 /// id card province dict.
-List<String> ID_CARD_PROVINCE_DICT = [
+List<String> idCardProvinceDict = [
   '11=北京',
   '12=天津',
   '13=河北',

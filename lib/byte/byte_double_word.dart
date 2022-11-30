@@ -11,8 +11,8 @@ class ByteDoubleWord {
   Byte _three = Byte(0);
   Byte _four = Byte(0);
 
-  ByteDoubleWord({@required Byte one, @required Byte two,
-    @required Byte three, @required Byte four}) {
+  ByteDoubleWord({required Byte one, required Byte two,
+    required Byte three, required Byte four}) {
     _one = one;
     _two = two;
     _three = three;

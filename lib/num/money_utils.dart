@@ -58,7 +58,7 @@ class MoneyUtils {
   /// yuan, format & unit  output.(yuan is int,double,str).
   /// 元, format 与 unit 格式 输出.
   static String changeYWithUnit(Object yuan, MoneyUnit unit,
-      {MoneyFormat format}) {
+      {MoneyFormat? format}) {
     String yuanTxt = yuan.toString();
     if (format != null) {
       int amount = changeY2F(yuan);

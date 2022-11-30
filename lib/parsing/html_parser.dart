@@ -1,4 +1,3 @@
-
 import 'Elements.dart';
 
 var empty = makeMap(
@@ -9,11 +8,10 @@ var special = makeMap("script,style");
 /// 解析HTML/XML元素并返回' start '， ' end '， ' comment '， ' chars '。
 /// 基于这些回调函数构造JSON。
 class HtmlParser {
-
   var index, chars;
   List<String> stack = [];
-  String match, last;
-  Map<String, Function> handler;
+  String? match, last;
+  Map<String, Function>? handler;
 
   String stackLast() {
     if (stack.isEmpty) return "";
@@ -23,40 +21,38 @@ class HtmlParser {
   HtmlParser(String html, Map<String, Function> handler) {
     last = html;
     this.handler = handler;
-
-    ;
     while (html.isNotEmpty) {
       chars = true;
       if (html.indexOf("<!--") == 0) {
         index = html.indexOf("-->");
 
         if (index >= 0) {
-          handler["comment"](html.substring(4, index));
+          handler["comment"]!(html.substring(4, index));
           html = html.substring(index + 3);
           chars = false;
         }
       } else if (html.indexOf("</") == 0) {
         match = RegExp(r"^<([\s\S]*?)>").stringMatch(html);
-        var matchLength = match.length;
+        var matchLength = match?.length;
 
-        if (match != null && matchLength > 0) {
-          html = html.substring(matchLength);
-          match = match.substring(2, matchLength - 1);
+        if (match != null && matchLength! > 0) {
+          html = html.substring(matchLength!);
+          match = match?.substring(2, matchLength - 1);
 
-          parseEndTag(match);
+          parseEndTag(match!);
           chars = false;
         }
       } else if (html.indexOf("<") == 0) {
         if ((match = RegExp(r"^<([\s\S]*?)>").stringMatch(html)) != null &&
-            match.isNotEmpty) {
-          var matchLength = match.length;
-          html = html.substring(matchLength);
-          if (match.endsWith(r"/>")) {
-            match = match.substring(1, matchLength - 2);
-            parseStartTag(match, match.split(" ")[0], true);
+            match!.isNotEmpty) {
+          var matchLength = match?.length;
+          html = html.substring(matchLength!);
+          if (match!.endsWith(r"/>")) {
+            match = match?.substring(1, matchLength - 2);
+            parseStartTag(match!, match!.split(" ")[0], true);
           } else {
-            match = match.substring(1, matchLength - 1);
-            parseStartTag(match, match.split(" ")[0], false);
+            match = match!.substring(1, matchLength - 1);
+            parseStartTag(match!, match!.split(" ")[0], false);
           }
         }
         chars = false;
@@ -67,7 +63,7 @@ class HtmlParser {
         var text = index < 0 ? html : html.substring(0, index);
         html = index < 0 ? "" : html.substring(index);
 
-        if (text.trim().isNotEmpty) handler["chars"](text);
+        if (text.trim().isNotEmpty) handler["chars"]!(text);
       }
 
       if (html == last) throw "Parse Error: " + html;
@@ -87,20 +83,21 @@ class HtmlParser {
         r"""([a-zA-Z_:@#][-a-zA-Z0-9_:.]*)(?:\s*=(\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+))))?""");
 
     List<Attribute> attrs = attrRegExp.allMatches(rest).map((match) {
-      String value = match.group(2) != null
+      String? value = match.group(2) != null
           ? match.group(2)
           : match.group(3) != null
               ? match.group(3)
-              : match.group(4) != null ? match.group(4) : "";
-      return Attribute(match.group(1),
-          value.isEmpty ? "" : value.substring(1, value.length - 1), value);
+              : match.group(4) != null
+                  ? match.group(4)
+                  : "";
+      return Attribute(match.group(1)!,
+          value!.isEmpty ? "" : value.substring(1, value.length - 1), value);
     }).toList();
-
-    handler["start"](tagName, attrs, unary);
+    handler!["start"]!(tagName, attrs, unary);
   }
 
   parseEndTag([String tagName = ""]) {
-    if (tagName.trim().isNotEmpty) handler["end"](tagName);
+    if (tagName.trim().isNotEmpty) handler!["end"]!(tagName);
   }
 }
 

@@ -9,5 +9,5 @@ class EnumUtils {
 
   ///String反显枚举
   static T enumValueFromString<T>(String key, List<T> values) =>
-      values.firstWhere((v) => key == enumValueToString(v), orElse: () => null);
+      values.firstWhere((v) => key == enumValueToString(v!), orElse: null);
 }

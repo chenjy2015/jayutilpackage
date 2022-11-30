@@ -10,7 +10,7 @@ class ByteWord {
   Byte get high => _high;
   Byte get low => _low;
 
-  ByteWord({@required Byte high, @required Byte low}) {
+  ByteWord({required Byte high, required Byte low}) {
     _high = high;
     _low = low;
   }

@@ -8,11 +8,11 @@ import 'node_type.dart';
 /// [RootNode],[ElementNode],[TextNode],[CommentNode]
 abstract class Node {
 
-  String type;
-  String tag;
-  String text;
-  List<Attribute> attributes;
-  List<Node> children;
+  String? type;
+  String? tag;
+  String? text;
+  List<Attribute>? attributes;
+  List<Node>? children;
 
   Node(this.type, {this.tag, this.text, this.attributes, this.children});
 
@@ -24,11 +24,11 @@ abstract class Node {
 
     if (attributes != null) {
       map["attributes"] =
-          attributes.map((attribute) => attribute.toMap()).toList();
+          attributes?.map((attribute) => attribute.toMap()).toList();
     }
 
     if (children != null) {
-      map["children"] = children.map((child) => child.toMap()).toList();
+      map["children"] = children?.map((child) => child.toMap()).toList();
     }
     return map;
   }
@@ -50,9 +50,9 @@ abstract class Node {
 /// 开始标记。它拥有孩子。
 class RootNode extends Node {
 
-  String type = NodeType.ROOT;
+  String? type = NodeType.ROOT;
 
-  List<Node> children;
+  List<Node>? children;
 
   RootNode(this.children) : super(NodeType.ROOT, children: children);
 }
@@ -60,10 +60,10 @@ class RootNode extends Node {
 /// 它是包含属性和子元素的HTML/XML标记。
 /// 应该指定标签(例如:div)。支持属性和子元素。
 class ElementNode extends Node {
-  String type = NodeType.ELEMENT;
-  String tag;
-  List<Attribute> attributes;
-  List<Node> children;
+  String? type = NodeType.ELEMENT;
+  String? tag;
+  List<Attribute>? attributes;
+  List<Node>? children;
 
   ElementNode({this.tag, this.attributes, this.children})
       : super(NodeType.ELEMENT,
@@ -75,8 +75,8 @@ class ElementNode extends Node {
 /// 那么： `Hello world!` is the TextNode
 /// 它是出现在HTML/Markup标签内的文本。
 class TextNode extends Node {
-  String type = NodeType.TEXT;
-  String text;
+  String? type = NodeType.TEXT;
+  String? text;
 
   TextNode(this.text) : super(NodeType.TEXT, text: text);
 }
@@ -84,8 +84,8 @@ class TextNode extends Node {
 /// 它是节点之间的注释
 /// 它是一个注释，可以放在元素之间，
 class CommentNode extends Node {
-  String type = NodeType.COMMENT;
-  String text;
+  String? type = NodeType.COMMENT;
+  String? text;
 
   CommentNode(this.text) : super(NodeType.COMMENT, text: text);
 }
@@ -95,7 +95,7 @@ class Attribute {
 
   String name;
   String value;
-  String valueOriginal;
+  String? valueOriginal;
 
   Attribute(this.name, this.value, [this.valueOriginal]) {
     if (valueOriginal == null) {

@@ -8,7 +8,7 @@ class TaskQueueUtils {
   //队列任务
   Queue<_TaskInfo> _taskList = Queue();
   //是否有正在进行的task
-  _TaskInfo _currentTask;
+  _TaskInfo? _currentTask;
 
   void addTask(Future Function() performSelector , int max) {
     //最多max个任务
@@ -41,7 +41,7 @@ class TaskQueueUtils {
 
     /// 执行任务
     LogUtils.d("TripQueueUtil - 执行任务");
-    await _currentTask.performSelector();
+    await _currentTask?.performSelector();
     _currentTask = null;
 
     /// 递归执行任务

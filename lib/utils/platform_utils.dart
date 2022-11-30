@@ -9,11 +9,11 @@ class PlatformUtils {
   /// 返回值或运行基于平台的函数。
   /// 如果传递了上下文，它将通过 Theme.of(context).platform 获取平台。
   /// 否则，它将使用 defaultTargetPlatform。
-  static get({BuildContext context}) {
+  static get({BuildContext? context}) {
     return context != null ? Theme.of(context).platform : defaultTargetPlatform;
   }
 
-  static T select<T>({BuildContext context, dynamic android, dynamic ios,
+  static T select<T>({BuildContext? context, dynamic android, dynamic ios,
     dynamic fuchsia, dynamic web, dynamic macOS,dynamic windows,
     dynamic linux,dynamic defaultWhenNull}) {
     var func;

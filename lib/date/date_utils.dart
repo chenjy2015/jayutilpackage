@@ -1,13 +1,11 @@
-
 import 'data_formats.dart';
 
 /// 日期时间工具类
 class DateUtils {
-
   /// get DateTime By DateStr.
   /// 将字符串时间转化为DateTime
-  static DateTime getDateTime(String dateStr, {bool isUtc}) {
-    DateTime dateTime = DateTime.tryParse(dateStr);
+  static DateTime? getDateTime(String dateStr, {bool? isUtc}) {
+    DateTime? dateTime = DateTime.tryParse(dateStr);
     if (isUtc != null) {
       if (isUtc) {
         dateTime = dateTime?.toUtc();
@@ -26,9 +24,9 @@ class DateUtils {
 
   /// get DateMilliseconds By DateStr.
   /// 将字符串时间转化为毫秒值
-  static int getDateMsByTimeString(String dateStr, {bool isUtc}) {
-    DateTime dateTime = getDateTime(dateStr, isUtc: isUtc);
-    return dateTime.millisecondsSinceEpoch;
+  static int? getDateMsByTimeString(String dateStr, {bool? isUtc}) {
+    DateTime? dateTime = getDateTime(dateStr, isUtc: isUtc);
+    return dateTime?.millisecondsSinceEpoch;
   }
 
   /// get Now Date Time.
@@ -63,31 +61,33 @@ class DateUtils {
 
   /// 获取当前日期，返回指定格式
   static String getNowDateTimeFormat(String outFormat) {
-    var formatResult = formatDate(getNowDateTime(),format: outFormat);
+    var formatResult = formatDate(getNowDateTime(), format: outFormat);
     return formatResult;
   }
 
   /// 获取当前日期，返回指定格式
   static String getUtcDateTimeFormat(String outFormat) {
-    var formatResult = formatDate(getNowUtcDateTime(),format: outFormat);
+    var formatResult = formatDate(getNowUtcDateTime(), format: outFormat);
     return formatResult;
   }
 
   /// format date by milliseconds.
   /// 格式化日期毫秒时间
-  static String formatDateMilliseconds(int ms, {bool isUtc = false, String format}) {
+  static String formatDateMilliseconds(int ms,
+      {bool isUtc = false, String format = ""}) {
     return formatDate(getDateTimeByMs(ms, isUtc: isUtc), format: format);
   }
 
   /// format date by date str.
   /// 格式化日期字符串
-  static String formatDateString(String dateStr, {bool isUtc, String format}) {
+  static String formatDateString(String dateStr,
+      {bool isUtc = false, String format = ""}) {
     return formatDate(getDateTime(dateStr, isUtc: isUtc), format: format);
   }
 
   /// format date by DateTime.
   /// format 转换格式(已提供常用格式 DateFormats，可以自定义格式：'yyyy/MM/dd HH:mm:ss')
-  static String formatDate(DateTime dateTime, {String format}) {
+  static String formatDate(DateTime? dateTime, {String? format}) {
     if (dateTime == null) return '';
     format = format ?? DateFormats.FULL;
     if (format.contains('yy')) {
@@ -95,7 +95,8 @@ class DateUtils {
       if (format.contains('yyyy')) {
         format = format.replaceAll('yyyy', year);
       } else {
-        format = format.replaceAll('yy', year.substring(year.length - 2, year.length));
+        format = format.replaceAll(
+            'yy', year.substring(year.length - 2, year.length));
       }
     }
     format = _comFormat(dateTime.month, format, 'M', 'MM');
@@ -172,7 +173,7 @@ class DateUtils {
     int month = dateTime.month;
     int days = dateTime.day;
     for (int i = 1; i < month; i++) {
-      days = days + MONTH_DAY[i];
+      days = days + MONTH_DAY[i]!;
     }
     if (isLeapYearByYear(year) && month > 2) {
       days = days + 1;
@@ -188,8 +189,8 @@ class DateUtils {
 
   /// is today.
   /// 根据时间戳判断是否是今天
-  static bool isToday(int milliseconds, {bool isUtc = false, int locMs}) {
-    if (milliseconds == null || milliseconds == 0) return false;
+  static bool isToday(int milliseconds, {bool isUtc = false, int? locMs}) {
+    if (milliseconds == 0) return false;
     DateTime old =
         DateTime.fromMillisecondsSinceEpoch(milliseconds, isUtc: isUtc);
     DateTime now;
@@ -209,8 +210,10 @@ class DateUtils {
       return spDay == 1;
     } else {
       return ((locDateTime.year - dateTime.year == 1) &&
-          dateTime.month == 12 && locDateTime.month == 1 &&
-          dateTime.day == 31 && locDateTime.day == 1);
+          dateTime.month == 12 &&
+          locDateTime.month == 1 &&
+          dateTime.day == 31 &&
+          locDateTime.day == 1);
     }
   }
 
@@ -223,8 +226,8 @@ class DateUtils {
 
   /// is Week.
   /// 根据时间戳判断是否是本周
-  static bool isWeek(int ms, {bool isUtc = false, int locMs}) {
-    if (ms == null || ms <= 0) {
+  static bool isWeek(int ms, {bool isUtc = false, int? locMs}) {
+    if (ms <= 0) {
       return false;
     }
     DateTime _old = DateTime.fromMillisecondsSinceEpoch(ms, isUtc: isUtc);
@@ -298,21 +301,21 @@ class DateUtils {
 
   /// Creates a copy of [date] but with time replaced with the new values.
   static DateTime setTime(DateTime date, int hours, int minutes,
-      [int seconds = 0, int milliseconds = 0, int microseconds = 0]) =>
+          [int seconds = 0, int milliseconds = 0, int microseconds = 0]) =>
       _date(date.isUtc, date.year, date.month, date.day, hours, minutes,
           seconds, milliseconds, microseconds);
 
   /// Creates a copy of [date] but with the given fields
   /// replaced with the new values.
   static DateTime copyWith(DateTime date,
-      {int year,
-        int month,
-        int day,
-        int hour,
-        int minute,
-        int second,
-        int millisecond,
-        int microsecond}) =>
+          {int? year,
+          int? month,
+          int? day,
+          int? hour,
+          int? minute,
+          int? second,
+          int? millisecond,
+          int? microsecond}) =>
       _date(
           date.isUtc,
           year ?? date.year,
@@ -360,12 +363,12 @@ class DateUtils {
   /// [DateTime.monday], ..., [DateTime.sunday].
   ///
   /// By default it's [DateTime.monday].
-  static int getWeekNumber(DateTime date, {int firstWeekday}) {
+  static int getWeekNumber(DateTime date, {int? firstWeekday}) {
     assert(firstWeekday == null || firstWeekday > 0 && firstWeekday < 8);
 
-    if (isWeekInYear(date, date.year, firstWeekday)) {
+    if (isWeekInYear(date, date.year, firstWeekday!)) {
       final startOfTheFirstWeek =
-      firstDayOfFirstWeek(date.year, firstWeekday: firstWeekday);
+          firstDayOfFirstWeek(date.year, firstWeekday: firstWeekday);
       final diffInDays = getDaysDifference(date, startOfTheFirstWeek);
       return (diffInDays / DateTime.daysPerWeek).floor() + 1;
     } else if (date.month == DateTime.december) {
@@ -387,10 +390,10 @@ class DateUtils {
   /// By default it's [DateTime.monday].
   ///
   /// See [getWeekNumber].
-  static int getLastWeekNumber(int year, {int firstWeekday}) {
+  static int getLastWeekNumber(int year, {int? firstWeekday}) {
     assert(firstWeekday == null || firstWeekday > 0 && firstWeekday < 8);
 
-    final start = firstDayOfFirstWeek(year, firstWeekday: firstWeekday);
+    final start = firstDayOfFirstWeek(year, firstWeekday: firstWeekday!);
     final end = firstDayOfWeek(DateTime(year, DateTime.december, 31),
         firstWeekday: firstWeekday);
     final diffInDays = getDaysDifference(end, start);
@@ -408,7 +411,7 @@ class DateUtils {
   ///
   /// By default it's [DateTime.monday].
   ///
-  static int getDayNumberInWeek(DateTime date, {int firstWeekday}) {
+  static int getDayNumberInWeek(DateTime date, {int? firstWeekday}) {
     var res = date.weekday - (firstWeekday ?? DateTime.monday) + 1;
     if (res <= 0) res += DateTime.daysPerWeek;
 
@@ -453,10 +456,10 @@ class DateUtils {
   /// [DateTime.monday], ..., [DateTime.sunday].
   ///
   /// By default it's [DateTime.monday].
-  static bool isFirstDayOfWeek(DateTime day, {int firstWeekday}) {
+  static bool isFirstDayOfWeek(DateTime day, {int? firstWeekday}) {
     assert(firstWeekday == null || firstWeekday > 0 && firstWeekday < 8);
 
-    return isSameDay(firstDayOfWeek(day, firstWeekday: firstWeekday), day);
+    return isSameDay(firstDayOfWeek(day, firstWeekday: firstWeekday!), day);
   }
 
   /// Checks if [day] is in the last day of a week.
@@ -467,10 +470,10 @@ class DateUtils {
   ///
   /// By default it's [DateTime.monday],
   /// so the last day will be [DateTime.sunday].
-  static bool isLastDayOfWeek(DateTime day, {int firstWeekday}) {
+  static bool isLastDayOfWeek(DateTime day, {int? firstWeekday}) {
     assert(firstWeekday == null || firstWeekday > 0 && firstWeekday < 8);
 
-    return isSameDay(lastDayOfWeek(day, firstWeekday: firstWeekday), day);
+    return isSameDay(lastDayOfWeek(day, firstWeekday: firstWeekday!), day);
   }
 
   /// Checks if [day] is in the first day of a month.
@@ -492,7 +495,7 @@ class DateUtils {
   /// [DateTime.monday], ..., [DateTime.sunday].
   ///
   /// By default it's [DateTime.monday].
-  static DateTime firstDayOfWeek(DateTime dateTime, {int firstWeekday}) {
+  static DateTime firstDayOfWeek(DateTime dateTime, {int? firstWeekday}) {
     assert(firstWeekday == null || firstWeekday > 0 && firstWeekday < 8);
 
     var days = dateTime.weekday - (firstWeekday ?? DateTime.monday);
@@ -513,11 +516,11 @@ class DateUtils {
   /// By default it's [DateTime.monday].
   ///
   /// See [getWeekNumber].
-  static DateTime firstDayOfFirstWeek(int year, {int firstWeekday}) {
+  static DateTime firstDayOfFirstWeek(int year, {int? firstWeekday}) {
     assert(firstWeekday == null || firstWeekday > 0 && firstWeekday < 8);
 
     final startOfYear = DateTime(year);
-    return isWeekInYear(startOfYear, year, firstWeekday)
+    return isWeekInYear(startOfYear, year, firstWeekday!)
         ? firstDayOfWeek(startOfYear, firstWeekday: firstWeekday)
         : firstDayOfNextWeek(startOfYear, firstWeekday: firstWeekday);
   }
@@ -530,7 +533,7 @@ class DateUtils {
   /// parameter [firstWeekday]. It should be one of the constant values
   /// [DateTime.monday], ..., [DateTime.sunday].
   /// By default it's [DateTime.monday].
-  static DateTime firstDayOfNextWeek(DateTime dateTime, {int firstWeekday}) {
+  static DateTime firstDayOfNextWeek(DateTime dateTime, {int? firstWeekday}) {
     assert(firstWeekday == null || firstWeekday > 0 && firstWeekday < 8);
 
     var days = dateTime.weekday - (firstWeekday ?? DateTime.monday);
@@ -549,7 +552,7 @@ class DateUtils {
   ///
   /// By default it's [DateTime.monday],
   /// so the last day will be [DateTime.sunday].
-  static DateTime lastDayOfWeek(DateTime dateTime, {int firstWeekday}) {
+  static DateTime lastDayOfWeek(DateTime dateTime, {int? firstWeekday}) {
     assert(firstWeekday == null || firstWeekday > 0 && firstWeekday < 8);
 
     var days = (firstWeekday ?? DateTime.monday) - 1 - dateTime.weekday;
@@ -688,19 +691,18 @@ class DateUtils {
   }
 
   static DateTime _date(bool utc, int year,
-      [int month = 1,
-        int day = 1,
-        int hour = 0,
-        int minute = 0,
-        int second = 0,
-        int millisecond = 0,
-        int microsecond = 0]) =>
+          [int month = 1,
+          int day = 1,
+          int hour = 0,
+          int minute = 0,
+          int second = 0,
+          int millisecond = 0,
+          int microsecond = 0]) =>
       utc
           ? DateTime.utc(
-          year, month, day, hour, minute, second, millisecond, microsecond)
+              year, month, day, hour, minute, second, millisecond, microsecond)
           : DateTime(
-          year, month, day, hour, minute, second, millisecond, microsecond);
-
+              year, month, day, hour, minute, second, millisecond, microsecond);
 }
 
 /// month->days.

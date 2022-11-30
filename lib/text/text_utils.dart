@@ -2,7 +2,7 @@
 class TextUtils {
 
   /// 判断文本内容是否为空
-  static bool isEmpty(String text) {
+  static bool isEmpty(String? text) {
     return text == null || text.isEmpty;
   }
 
@@ -35,7 +35,7 @@ class TextUtils {
   }
 
   /// 使用点缩写字符串
-  static String abbreviate(String str, int maxWidth, {int offset = 0}) {
+  static String? abbreviate(String? str, int maxWidth, {int offset = 0}) {
     if (str == null) {
       return null;
     } else if (str.length <= maxWidth) {

@@ -16,14 +16,14 @@ class NumUtils {
   }
 
   /// 将数字字符串转num，数字保留x位小数
-  static num getNumByValueString(String valueStr, {int fractionDigits}) {
-    double value = double.tryParse(valueStr);
+  static num? getNumByValueString(String valueStr, {int? fractionDigits}) {
+    double? value = double.tryParse(valueStr);
     return fractionDigits == null ? value
-        : getNumByValueDouble(value, fractionDigits);
+        : getNumByValueDouble(value!, fractionDigits);
   }
 
   /// 浮点数字保留x位小数
-  static num getNumByValueDouble(double value, int fractionDigits) {
+  static num? getNumByValueDouble(double? value, int fractionDigits) {
     if (value == null) return null;
     String valueStr = value.toStringAsFixed(fractionDigits);
     return fractionDigits == 0

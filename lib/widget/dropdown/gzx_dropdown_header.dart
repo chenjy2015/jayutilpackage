@@ -27,21 +27,21 @@ class GZXDropDownHeader extends StatefulWidget {
 
   /// Creates a dropdown header widget, Contains more than one header items.
   GZXDropDownHeader({
-    Key key,
-    this.items,
-    this.controller,
-    this.stackKey,
+    Key? key,
+    required this.items,
+    required this.controller,
+    required this.stackKey,
     this.style = const TextStyle(color: Color(0xFF666666), fontSize: 13),
-    this.dropDownStyle,
+    required this.dropDownStyle,
     this.height = 40,
     this.iconColor = const Color(0xFFafada7),
-    this.iconDropDownColor,
+    required this.iconDropDownColor,
     this.iconSize = 20,
     this.borderWidth = 1,
     this.borderColor = const Color(0xFFeeede6),
     this.dividerHeight = 20,
     this.dividerColor = const Color(0xFFeeede6),
-    this.onItemTap,
+    required this.onItemTap,
     this.color = Colors.white,
   }) : super(key: key);
 
@@ -52,11 +52,11 @@ class GZXDropDownHeader extends StatefulWidget {
 class _GZXDropDownHeaderState extends State<GZXDropDownHeader>
     with SingleTickerProviderStateMixin {
   bool _isShowDropDownItemWidget = false;
-  double _screenWidth;
-  int _menuCount;
+  late double _screenWidth;
+  late int _menuCount;
   GlobalKey _keyDropDownHeader = GlobalKey();
-  TextStyle _dropDownStyle;
-  Color _iconDropDownColor;
+  late TextStyle _dropDownStyle;
+  late Color _iconDropDownColor;
 
   @override
   void initState() {
@@ -120,10 +120,10 @@ class _GZXDropDownHeaderState extends State<GZXDropDownHeader>
     return GestureDetector(
       onTap: () {
         final RenderBox overlay =
-            widget.stackKey.currentContext.findRenderObject() as RenderBox;
+            widget.stackKey.currentContext?.findRenderObject() as RenderBox;
 
         final RenderBox dropDownItemRenderBox =
-            _keyDropDownHeader.currentContext.findRenderObject() as RenderBox;
+            _keyDropDownHeader.currentContext?.findRenderObject() as RenderBox;
 
         var position =
             dropDownItemRenderBox.localToGlobal(Offset.zero, ancestor: overlay);
@@ -211,9 +211,9 @@ class GZXDropDownHeaderItem {
 
   GZXDropDownHeaderItem(
     this.title, {
-    this.iconData,
-    this.iconDropDownData,
-    this.iconSize,
-    this.style,
+    required this.iconData,
+    required this.iconDropDownData,
+    required this.iconSize,
+    required this.style,
   });
 }

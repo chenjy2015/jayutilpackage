@@ -11,8 +11,8 @@ class GZXDropdownMenuBuilder {
   final double dropDownHeight;
 
   GZXDropdownMenuBuilder({
-    this.dropDownWidget,
-    this.dropDownHeight,
+    required this.dropDownWidget,
+    required this.dropDownHeight,
   });
 }
 
@@ -34,13 +34,13 @@ class GZXDropDownMenu extends StatefulWidget {
   /// Creates a dropdown menu widget.
   /// The widget must be inside the Stack because the widget is a Positioned.
   const GZXDropDownMenu({
-    Key key,
-    this.controller,
-    this.menus,
+    Key? key,
+    required this.controller,
+    required this.menus,
     this.animationMilliseconds = 500,
     this.maskColor = const Color.fromRGBO(0, 0, 0, 0.5),
-    this.dropdownMenuChanging,
-    this.dropdownMenuChanged,
+    required this.dropdownMenuChanging,
+    required this.dropdownMenuChanged,
   }) : super(key: key);
 
   @override
@@ -52,14 +52,14 @@ class _GZXDropDownMenuState extends State<GZXDropDownMenu>
   bool _isShowDropDownItemWidget = false;
   bool _isShowMask = false;
   bool _isControllerDisposed = false;
-  Animation<double> _animation;
-  AnimationController _controller;
+  late Animation<double> _animation;
+  late AnimationController _controller;
 
-  double _maskColorOpacity;
+  late double _maskColorOpacity;
 
-  double _dropDownHeight;
+  late double _dropDownHeight;
 
-  int _currentMenuIndex;
+  late int _currentMenuIndex;
 
   @override
   void initState() {
