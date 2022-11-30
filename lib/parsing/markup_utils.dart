@@ -81,7 +81,7 @@ class MarkupUtils {
           if (parent.children == null) {
             parent.children = [];
           }
-          parent.children.add(elementNode);
+          parent.children?.add(elementNode);
         } else {
           bufArray.insert(0, elementNode);
         }
@@ -93,13 +93,13 @@ class MarkupUtils {
         if (node.tag != tag) print('invalid state: mismatch end tag: $node');
 
         if (bufArray.isEmpty) {
-          results.children.add(node);
+          results.children?.add(node);
         } else {
           var parent = bufArray[0] as ElementNode;
           if (parent.children == null) {
             parent.children = [];
           }
-          parent.children.add(node);
+          parent.children?.add(node);
         }
       },
       "chars": (String text) {
@@ -109,13 +109,13 @@ class MarkupUtils {
 
         TextNode textNode = TextNode(text);
         if (bufArray.isEmpty) {
-          results.children.add(textNode);
+          results.children?.add(textNode);
         } else {
           var parent = bufArray[0] as ElementNode;
           if (parent.children == null) {
             parent.children = [];
           }
-          parent.children.add(textNode);
+          parent.children?.add(textNode);
         }
       },
       "comment": (String text) {
@@ -124,7 +124,7 @@ class MarkupUtils {
         if (parent.children == null) {
           parent.children = [];
         }
-        parent.children.add(commentNode);
+        parent.children?.add(commentNode);
       }
     });
     return results;
